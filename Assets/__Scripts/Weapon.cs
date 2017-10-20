@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour {
         GameObject parentGO = transform.parent.gameObject;
         if(parentGO.tag == "Hero")
         {
-            Hero.S.fireDelagate += Fire;
+            Hero.S.fireDelegate += Fire;
         }
     }
 
