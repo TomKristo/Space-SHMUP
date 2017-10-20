@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-
 public enum BoundsTest {
 	center,			// is the center of the gameObject on screen?
 	onScreen,		// are bounds entirely on screen
@@ -11,6 +10,8 @@ public enum BoundsTest {
 
 public class Utils : MonoBehaviour
 {
+    //======================================================================================== Bounds Functions ====================================================================================
+
 	// create bounds that expand to hold the two bounds passed in
 	public static Bounds BoundsUnion( Bounds b0, Bounds b1) {
 		if (b0.size == Vector3.zero && b1.size != Vector3.zero) {
@@ -191,7 +192,10 @@ public class Utils : MonoBehaviour
 		return (Vector3.zero);  // if we get here something went wrong
 	
 	} // end BoundsInBoundsCheck
-	
+
+    //======================================================================================== Transform Functions ====================================================================================
+
+
     public static GameObject FindTaggedParent(GameObject go)
     {
         if(go.tag != "Untagged")
@@ -212,6 +216,22 @@ public class Utils : MonoBehaviour
         return (FindTaggedParent(t.gameObject));
     }
 
+    //======================================================================================== Materials Functions ====================================================================================
+
+    static public Material[] GetAllMaterials( GameObject go)
+    {
+        List<Material> mats = new List<Material>();
+
+        if (go.GetComponent<Renderer>() != null)
+        {
+            mats.Add(go.GetComponent<Renderer>().material);
+        }
+        foreach(Transform t in go.transform)
+        {
+            mats.AddRange(GetAllMaterials(t.gameObject));
+        }
+        return (mats.ToArray());
+    }
 }// End of Util Class
 
 

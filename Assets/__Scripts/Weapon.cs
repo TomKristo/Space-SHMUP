@@ -49,7 +49,6 @@ public class Weapon : MonoBehaviour {
         }
 
         GameObject parentGO = transform.parent.gameObject;
-        
         if(parentGO.tag == "Hero")
         {
             Hero.S.fireDelagate += Fire;
@@ -90,7 +89,10 @@ public class Weapon : MonoBehaviour {
 
     public void Fire()
     {
-        if (!gameObject.activeInHierarchy) return;
+        if (!gameObject.activeInHierarchy)
+        {
+            return;
+        }
         if (Time.time - lastShot < def.delayBetweenShots)
         {
             return;
