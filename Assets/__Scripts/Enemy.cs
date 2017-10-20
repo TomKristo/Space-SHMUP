@@ -12,12 +12,12 @@ public class Enemy : MonoBehaviour {
     public Bounds bounds;
     public Vector3 boundsCenterOffset;
 
-    private void Awake()
+    void Awake()
     {
         InvokeRepeating("CheckOffscreen", 0f, 2f);
     }
 
-    private void Update()
+    void Update()
     {
         Move();
     }
@@ -53,10 +53,14 @@ public class Enemy : MonoBehaviour {
         bounds.center = transform.position + boundsCenterOffset;
         Vector3 off = Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen);
 
-        if(off.y < 0)
+        if (off != Vector3.zero)
         {
-            Destroy(this.gameObject);
+            if (off.y < 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
+        
     }
 
 }
